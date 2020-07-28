@@ -13,7 +13,7 @@
 <meta property="og:type" content="article" />
 <meta property="article:published_time" content="2020-01-14T13:43:00+01:00" />
 <script type="application/ld+json">
-{"datePublished":"2020-01-14T13:43:00+01:00","headline":"Writing a stopwatch and rounds counter mobile app with React Native","dateModified":"2020-01-14T13:43:00+01:00","mainEntityOfPage":{"@type":"WebPage","@id":"https://outofmemory.dev/2020/01/14/writing-a-mobile-app-with-react-native.html"},"url":"https://outofmemory.dev/2020/01/14/writing-a-mobile-app-with-react-native.html","@type":"BlogPosting","publisher":{"@type":"Organization","logo":{"@type":"ImageObject","url":"https://outofmemory.dev/logo.svg"}},"@context":"https://schema.org"}</script>
+{"headline":"Writing a stopwatch and rounds counter mobile app with React Native","dateModified":"2020-01-14T13:43:00+01:00","datePublished":"2020-01-14T13:43:00+01:00","mainEntityOfPage":{"@type":"WebPage","@id":"https://outofmemory.dev/2020/01/14/writing-a-mobile-app-with-react-native.html"},"url":"https://outofmemory.dev/2020/01/14/writing-a-mobile-app-with-react-native.html","@type":"BlogPosting","publisher":{"@type":"Organization","logo":{"@type":"ImageObject","url":"https://outofmemory.dev/logo.svg"}},"@context":"https://schema.org"}</script>
 <!-- End Jekyll SEO tag -->
 <link rel="stylesheet" href="/assets/main.css"><link type="application/atom+xml" rel="alternate" href="https://outofmemory.dev/feed.xml" title="Outofmemory" /></head>
 <body><header class="site-header">
@@ -147,36 +147,6 @@ https://facebook.github.io/react-native/docs/getting-started</p>
   <li>https://github.com/slavik925/wrtimer/blob/master/useStopWatch.tsx (<em>useStopWatch</em> react hook)</li>
   <li>https://github.com/slavik925/wrtimer/blob/master/App.tsx (contains all the logic)</li>
 </ul>
-
-<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
-<span class="kd">const</span> <span class="nx">App</span><span class="p">:</span> <span class="nx">React</span><span class="p">.</span><span class="nx">FC</span> <span class="o">=</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
-  <span class="nx">useKeepAwake</span><span class="p">();</span>
-
-  <span class="kd">const</span> <span class="p">{</span> <span class="nx">start</span><span class="p">,</span> <span class="nx">stop</span><span class="p">,</span> <span class="nx">times</span> <span class="p">}</span> <span class="o">=</span> <span class="nx">useStopWatch</span><span class="p">();</span>
-  <span class="kd">const</span> <span class="p">[</span><span class="nx">rounds</span><span class="p">,</span> <span class="nx">setRounds</span><span class="p">]</span> <span class="o">=</span> <span class="nx">useState</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
-  <span class="kd">const</span> <span class="p">[</span><span class="nx">appState</span><span class="p">,</span> <span class="nx">setAppState</span><span class="p">]</span> <span class="o">=</span> <span class="nx">useState</span><span class="p">(</span><span class="nx">StopWatchState</span><span class="p">.</span><span class="nx">INITIAL</span><span class="p">);</span>
-
-  <span class="k">return</span> <span class="p">(</span>
-    <span class="o">&lt;</span><span class="nx">TouchableHighlight</span> <span class="nx">onPress</span><span class="o">=</span><span class="p">{</span><span class="nx">toggleAppState</span><span class="p">(</span><span class="nx">appState</span><span class="p">,</span> <span class="nx">setAppState</span><span class="p">,</span> <span class="nx">setRounds</span><span class="p">,</span> <span class="nx">start</span><span class="p">)}</span> <span class="nx">underlayColor</span><span class="o">=</span><span class="dl">"</span><span class="s2">white</span><span class="dl">"</span><span class="o">&gt;</span>
-      <span class="o">&lt;</span><span class="nx">View</span> <span class="nx">style</span><span class="o">=</span> <span class="o">&gt;</span>
-        <span class="o">&lt;</span><span class="nx">View</span> <span class="nx">style</span><span class="o">=</span><span class="p">{</span><span class="nx">styles</span><span class="p">.</span><span class="nx">topBar</span><span class="p">}</span><span class="o">&gt;</span>
-          <span class="o">&lt;</span><span class="nx">TouchableOpacity</span> <span class="nx">onPress</span><span class="o">=</span><span class="p">{</span><span class="nx">BackHandler</span><span class="p">.</span><span class="nx">exitApp</span><span class="p">}</span><span class="o">&gt;</span>
-            <span class="p">{</span><span class="nx">IconPowerOff</span><span class="p">}</span>
-          <span class="o">&lt;</span><span class="sr">/TouchableOpacity</span><span class="err">&gt;
-</span>          <span class="o">&lt;</span><span class="nx">TouchableOpacity</span> <span class="nx">onPress</span><span class="o">=</span><span class="p">{</span><span class="nx">stopAndReset</span><span class="p">(</span><span class="nx">setAppState</span><span class="p">,</span> <span class="nx">setRounds</span><span class="p">,</span> <span class="nx">stop</span><span class="p">)}</span><span class="o">&gt;</span>
-            <span class="p">{</span><span class="nx">IconRefresh</span><span class="p">}</span>
-          <span class="o">&lt;</span><span class="sr">/TouchableOpacity</span><span class="err">&gt;
-</span>        <span class="o">&lt;</span><span class="sr">/View</span><span class="err">&gt;
-</span>        <span class="o">&lt;</span><span class="nx">View</span> <span class="nx">style</span><span class="o">=</span><span class="p">{</span><span class="nx">styles</span><span class="p">.</span><span class="nx">stats</span><span class="p">}</span><span class="o">&gt;</span>
-          <span class="o">&lt;</span><span class="nx">Text</span> <span class="nx">style</span><span class="o">=</span><span class="p">{</span><span class="nx">styles</span><span class="p">.</span><span class="nx">stopwatchTextMedium</span><span class="p">}</span><span class="o">&gt;</span><span class="na">Round</span><span class="p">:</span> <span class="p">{</span><span class="nx">rounds</span><span class="p">}</span><span class="o">&lt;</span><span class="sr">/Text</span><span class="err">&gt;
-</span>          <span class="o">&lt;</span><span class="nx">Text</span> <span class="nx">style</span><span class="o">=</span><span class="p">{</span><span class="nx">styles</span><span class="p">.</span><span class="nx">stopwatchText</span><span class="p">}</span><span class="o">&gt;</span><span class="p">{</span><span class="nx">format</span><span class="p">(</span><span class="nx">times</span><span class="p">)}</span><span class="o">&lt;</span><span class="sr">/Text</span><span class="err">&gt;
-</span>          <span class="o">&lt;</span><span class="nx">Text</span> <span class="nx">style</span><span class="o">=</span><span class="p">{</span><span class="nx">styles</span><span class="p">.</span><span class="nx">stopwatchStatus</span><span class="p">}</span><span class="o">&gt;</span><span class="p">{</span><span class="nx">getStatusText</span><span class="p">(</span><span class="nx">appState</span><span class="p">)}</span><span class="o">&lt;</span><span class="sr">/Text</span><span class="err">&gt;
-</span>        <span class="o">&lt;</span><span class="sr">/View</span><span class="err">&gt;
-</span>      <span class="o">&lt;</span><span class="sr">/View</span><span class="err">&gt;
-</span>    <span class="o">&lt;</span><span class="sr">/TouchableHighlight</span><span class="err">&gt;
-</span>  <span class="p">);</span>
-<span class="p">}</span>
-</code></pre></div></div>
 
 <p>I’m using keepAwake hook to prevent the screen off while the app is running.</p>
 

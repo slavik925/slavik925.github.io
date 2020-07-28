@@ -106,36 +106,7 @@ There are only two important files for us:
 - https://github.com/slavik925/wrtimer/blob/master/useStopWatch.tsx (_useStopWatch_ react hook)
 - https://github.com/slavik925/wrtimer/blob/master/App.tsx (contains all the logic)
 
-```javascript
 
-const App: React.FC = () => {
-  useKeepAwake();
-
-  const { start, stop, times } = useStopWatch();
-  const [rounds, setRounds] = useState(0);
-  const [appState, setAppState] = useState(StopWatchState.INITIAL);
-
-  return (
-    <TouchableHighlight onPress={toggleAppState(appState, setAppState, setRounds, start)} underlayColor="white">
-      <View style={{ ...styles.container, backgroundColor: getColor(appState) }} >
-        <View style={styles.topBar}>
-          <TouchableOpacity onPress={BackHandler.exitApp}>
-            {IconPowerOff}
-          </TouchableOpacity>
-          <TouchableOpacity onPress={stopAndReset(setAppState, setRounds, stop)}>
-            {IconRefresh}
-          </TouchableOpacity>
-        </View>
-        <View style={styles.stats}>
-          <Text style={styles.stopwatchTextMedium}>Round: {rounds}</Text>
-          <Text style={styles.stopwatchText}>{format(times)}</Text>
-          <Text style={styles.stopwatchStatus}>{getStatusText(appState)}</Text>
-        </View>
-      </View>
-    </TouchableHighlight>
-  );
-}
-```
 
 I'm using keepAwake hook to prevent the screen off while the app is running.
 
